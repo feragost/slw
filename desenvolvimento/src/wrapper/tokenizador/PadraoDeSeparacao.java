@@ -9,12 +9,18 @@ public class PadraoDeSeparacao {
 	private boolean tokeniza;
 	private boolean separador;
 	private Pattern pattern;
+	private int tipo;
 	
-	public PadraoDeSeparacao(String regex, boolean tokeniza, boolean separador){
+	public PadraoDeSeparacao(String regex, boolean tokeniza, boolean separador, int tipo){
 		this.regex = regex;
 		this.tokeniza = tokeniza;
 		this.separador = separador;
 		this.pattern = Pattern.compile(regex);
+		this.tipo = tipo;
+	}
+	
+	public int getTipo(){
+		return this.tipo;
 	}
 
 	public String getRegex() {
@@ -29,8 +35,8 @@ public class PadraoDeSeparacao {
 		return separador;
 	}
 	
-	public Matcher parser(String texto){
-		return pattern.matcher(texto);
+	public Pattern getPattern(){
+		return pattern;
 	}
 	
 	
