@@ -7,6 +7,7 @@ import jsoap.DocumentCreator;
 import org.jsoup.nodes.Document;
 
 import wrapper.Wrapper;
+import wrapper.comum.PageDto;
 
 public class Main {
 	
@@ -15,7 +16,8 @@ public class Main {
 		Wrapper wrapper = new Wrapper();
 		File file = new File("C:/Users/Fernando/Desktop/ex.html"); 
 		Document doc = DocumentCreator.create(file);
-		wrapper.extrair(doc);
+		PageDto page = new PageDto("ex.html",0);
+		wrapper.extrair(doc, page);
 		
 	}
 

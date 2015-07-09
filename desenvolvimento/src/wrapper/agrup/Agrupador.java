@@ -1,16 +1,17 @@
 package wrapper.agrup;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import wrapper.WrapperConfig;
-import wrapper.parser.ElementoTexto;
+import wrapper.comum.PageDto;
 import wrapper.parser.Registro;
 
 public class Agrupador {
 	
-	public Agrupador(){
-		
+	private PageDto page;
+	
+	public Agrupador(PageDto page){
+		this.page = page;
 	}
 	
 	/*
@@ -20,25 +21,34 @@ public class Agrupador {
 	 */
 	public Registro agrupar(List<Registro> registros){
 		
-		if(registros.size() > 0){
+		if(registros.size() == 0){
 			
 			throw new RuntimeException("Zero registros foram entregues para agrupar");
 			
-		}else if(registros.size() > 0 && registros.size() < WrapperConfig.numeroMinimoDeRegistros){	
+		}else if(registros.size() > 0 && registros.size() < WrapperConfig.numeroMinimoDeRegistrosPorLista){	
 			
-			return Registro.compilar(registros);			
+			return Registro.compilar(registros);
 			
 		}else {
-			
+						
+			Extrator extrator = new Extrator(WrapperConfig.numeroDeDerivacoes, WrapperConfig.numeroMinimoDeRegistrosPorLista);
+			List<GrupoDeRegistrosSemelhantes> grupos = extrator.extrair(registros);
+						
+			if(grupos.size() == 0){
+				
+				return Registro.compilar(registros);
+				
+			}else{
+				
+				for(GrupoDeRegistrosSemelhantes grupo : grupos)
+					page.addGrupo(grupo);
+				
+				return null;
+				
+			}
 			
 			
 		}
-		
-		
-		
-		
-		
-		return null;
 	}
 	
 	

@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 
 public class Tokenizador{
 	
-	private ArrayList<PadraoDeSeparacao> padroes;
+	private ArrayList<Padrao> padroes;
 	private TokensCtrl tokensCtrl;
 	private boolean tokenizarRestos;
 	private int tipoDefault;
 	
 	public Tokenizador(){
-		this.padroes = new ArrayList<PadraoDeSeparacao>();
+		this.padroes = new ArrayList<Padrao>();
 		this.tokensCtrl = new TokensCtrl();
 	}
 	
@@ -27,7 +27,7 @@ public class Tokenizador{
 		this.tipoDefault = tipo;
 	}
 		
-	public void addPadroes(PadraoDeSeparacao padrao){
+	public void addPadroes(Padrao padrao){
 		padroes.add(padrao);
 	}
 
@@ -64,7 +64,7 @@ public class Tokenizador{
 			
 		}else{
 			
-			PadraoDeSeparacao padrao = padroes.get(indexSeparador);
+			Padrao padrao = padroes.get(indexSeparador);
 			LinkedList<Substring> substrings = getSubstrings(padrao, texto);
 			for(Substring subs : substrings){
 				
@@ -86,7 +86,7 @@ public class Tokenizador{
 	
 	
 	
-	private LinkedList<Substring> getSubstrings(PadraoDeSeparacao padrao, String texto){
+	private LinkedList<Substring> getSubstrings(Padrao padrao, String texto){
 		
 		LinkedList<Substring> substrings = new LinkedList<Substring>();
 		

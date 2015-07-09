@@ -1,6 +1,6 @@
 package wrapper.parser;
 
-import wrapper.tokenizador.PadraoDeSeparacao;
+import wrapper.tokenizador.Padrao;
 import wrapper.tokenizador.Token;
 import wrapper.tokenizador.Tokenizador;
 
@@ -13,11 +13,11 @@ public class TokenizadorElementoTexto extends Tokenizador {
 		String regexEspacoBranco = "\\s";
 		String regexCaracteresEspeciais = "\\W";
 		
-		addPadroes(new PadraoDeSeparacao(regexEmail, true, false, TipoToken.EMAIL.ordinal()));
-		addPadroes(new PadraoDeSeparacao(regexHifenInterno, true, false, TipoToken.HIFEN_INTERNO.ordinal()));
-		addPadroes(new PadraoDeSeparacao(regexNumero, true, false, TipoToken.NUMERO.ordinal()));
-		addPadroes(new PadraoDeSeparacao(regexEspacoBranco, false, false, TipoToken.ESPACO_BRANCO.ordinal()));
-		addPadroes(new PadraoDeSeparacao(regexCaracteresEspeciais, true, true, TipoToken.CARACTERE_ESPECIAL.ordinal()));
+		addPadroes(new Padrao(regexEmail, true, false, TipoToken.EMAIL.ordinal()));
+		addPadroes(new Padrao(regexHifenInterno, true, false, TipoToken.HIFEN_INTERNO.ordinal()));
+		addPadroes(new Padrao(regexNumero, true, false, TipoToken.NUMERO.ordinal()));
+		addPadroes(new Padrao(regexEspacoBranco, false, false, TipoToken.ESPACO_BRANCO.ordinal()));
+		addPadroes(new Padrao(regexCaracteresEspeciais, true, true, TipoToken.CARACTERE_ESPECIAL.ordinal()));
 				
 		setTokenizarRestos(true);
 		setTipoDefault(TipoToken.WORD.ordinal());

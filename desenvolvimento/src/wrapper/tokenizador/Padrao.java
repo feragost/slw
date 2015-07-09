@@ -3,7 +3,7 @@ package wrapper.tokenizador;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PadraoDeSeparacao {
+public class Padrao {
 	
 	private String regex;
 	private boolean tokeniza;
@@ -11,7 +11,7 @@ public class PadraoDeSeparacao {
 	private Pattern pattern;
 	private int tipo;
 	
-	public PadraoDeSeparacao(String regex, boolean tokeniza, boolean separador, int tipo){
+	public Padrao(String regex, boolean tokeniza, boolean separador, int tipo){
 		this.regex = regex;
 		this.tokeniza = tokeniza;
 		this.separador = separador;

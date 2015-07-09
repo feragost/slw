@@ -9,16 +9,21 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 
 import wrapper.agrup.Agrupador;
+import wrapper.comum.PageDto;
 
 public class Parser {
 	
 	private PathCtrl pathCtrl;
 	private TokenizadorElementoTexto tokenizadorET;
+	private PageDto page;
+	private Agrupador agrupador;
 
-	public void parse(Document doc) {
+	public void parse(Document doc, PageDto page) {
 		
-		pathCtrl = new PathCtrl();
-		tokenizadorET = new TokenizadorElementoTexto();
+		this.pathCtrl = new PathCtrl();
+		this.tokenizadorET = new TokenizadorElementoTexto();
+		this.page = page;
+		this.agrupador = new Agrupador(page);		
 		
 		Element body = doc.getElementsByTag("body").first();
 		parse(body);
@@ -46,8 +51,8 @@ public class Parser {
 				
 			}
 			
-			Agrupador agrupador = new Agrupador();
-			registro = agrupador.agrupar(registrosChilds);
+			if(registrosChilds.size() != 0)
+				registro = agrupador.agrupar(registrosChilds);
 						
 			
 		}else if(node instanceof TextNode){
