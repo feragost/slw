@@ -52,6 +52,8 @@ public class Armazenamento {
 				System.out.println(vqtd.getQtd() + " : " + vqtd.getValor());
 			
 			
+			System.out.println("");
+			System.out.println("");
 			
 			
 		}

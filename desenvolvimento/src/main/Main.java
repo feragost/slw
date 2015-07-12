@@ -15,7 +15,8 @@ public class Main {
 		
 		Wrapper wrapper = new Wrapper();
 		File file = new File("C:/Users/Fernando/Desktop/ex.html"); 
-		Document doc = DocumentCreator.create(file);
+		//Document doc = DocumentCreator.create(file);
+		Document doc = DocumentCreator.create("https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population");
 		PageDto page = new PageDto("ex.html",0);
 		wrapper.extrair(doc, page);
 		

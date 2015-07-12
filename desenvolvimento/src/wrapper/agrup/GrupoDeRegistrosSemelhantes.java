@@ -62,6 +62,7 @@ public class GrupoDeRegistrosSemelhantes {
 				}
 			}
 			
+			
 			TipoToken[] tiposTokenExistentes = TipoToken.values();
 			for(Integer tipo : ident.getTiposDeTokenEmComum()){
 				if( ! tiposToken.containsKey(tipo)){
@@ -70,6 +71,7 @@ public class GrupoDeRegistrosSemelhantes {
 					tiposToken.put(tipo, idv);
 				}
 			}
+			
 			
 		}
 		
@@ -81,49 +83,70 @@ public class GrupoDeRegistrosSemelhantes {
 			String identPath = "";
 			String ident = "";
 			boolean x = false;
+			Path pathAtual = null;
 			
 			for(ElementoTexto et : reg.getElementoTexto()){
 				
+				Path etPath = et.getPath();
+				
+				if( ! paths.containsKey(etPath)){
+					
+					String id = "p" + (paths.size() + 1);
+					
+					String[] pathDesc = etPath.getPathDesc();
+					String path = "";
+					for(String pathItem : pathDesc)
+						path += "/" + pathItem;
+					
+					IdValorDto idv = new IdValorDto(id, path);
+					paths.put(etPath, idv);
+					
+				}
+				
+				if(etPath != pathAtual){
+					IdValorDto idv = paths.get(et.getPath());
+					identPath += "." + idv.getId();
+					
+					pathAtual = etPath;
+				}
+				
+				
+				
+				
+				
 				for(Token token : et.getTokens()){
+					
 					
 					if(tiposToken.containsKey(token.getTipo())){
 						
 						IdValorDto idv = tiposToken.get(token.getTipo());
 						ident += "." + idv.getId();
+						identPath += "." + idv.getId();
 						x = false;
 						
-					} else if(separadores.containsKey(token)){
+					} else 
+					
+					if(separadores.containsKey(token)){
 						
 						IdValorDto idv = separadores.get(token);
 						ident += "." + idv.getId();
+						identPath += "." + idv.getId();
 						x = false;
 						
 					} else if( ! x ){
 						
 						ident += ".x";
+						identPath += ".x";
 						x = true;
 						
 					}
 					
 				}
 				
-				if( ! paths.containsKey(et.getPath())){
-					
-					String id = "p" + (paths.size() + 1);
-					
-					String[] pathDesc = et.getPath().getPathDesc();
-					String path = "";
-					for(String pathItem : pathDesc)
-						path += "/" + pathItem;
-					
-					IdValorDto idv = new IdValorDto(id, path);
-					paths.put(et.getPath(), idv);
-					
-				}
 				
 				
-				IdValorDto idv = paths.get(et.getPath());
-				identPath += "." + idv.getId();
+				
+				
 				
 			}						
 			
