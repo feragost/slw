@@ -10,16 +10,16 @@ public class PageDto {
 	private String url;
 	private int id_url;
 	
-	private List<GrupoDeRegistrosSemelhantes> grupos;
+	private List<ListDto> listas;
 	
 	public PageDto(String url, int id_url){
 		this.url = url;
 		this.id_url = id_url;
-		this.grupos = new LinkedList<GrupoDeRegistrosSemelhantes>();
+		this.listas = new LinkedList<ListDto>();
 	}
 	
-	public void addGrupo(GrupoDeRegistrosSemelhantes grupo){
-		grupos.add(grupo);
+	public void addLista(ListDto listDto){
+		this.listas.add(listDto);
 	}
 
 	public String getUrl() {
@@ -30,8 +30,8 @@ public class PageDto {
 		return id_url;
 	}
 
-	public List<GrupoDeRegistrosSemelhantes> getGrupos() {
-		return grupos;
+	public List<ListDto> getGrupos() {
+		return listas;
 	}
 	
 	

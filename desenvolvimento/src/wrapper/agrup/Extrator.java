@@ -6,8 +6,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import wrapper.parser.Registro;
-import wrapper.tokenizador.Token;
+import wrapper.comum.Identidade;
+import wrapper.comum.Registro;
+import wrapper.comum.Token;
 
 public class Extrator {
 	

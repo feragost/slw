@@ -3,14 +3,18 @@ package wrapper.parser;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
+import wrapper.comum.Path;
+
 public class PathCtrl {
 	
 	private Hashtable<String, Path> hashPath;
 	private LinkedList<String> pathAtual;
+	private int idCtrl;
 	
 	public PathCtrl(){
 		hashPath = new Hashtable<String, Path>();
 		pathAtual = new LinkedList<String>();
+		idCtrl = 0;
 	}
 	
 	public void in(String tag){
@@ -33,7 +37,7 @@ public class PathCtrl {
 		
 		if( ! hashPath.containsKey(pathDescAtual)){
 			
-			Path path = new Path(listPath);
+			Path path = new Path(listPath, ++idCtrl);
 			hashPath.put(pathDescAtual, path);			
 			
 		}

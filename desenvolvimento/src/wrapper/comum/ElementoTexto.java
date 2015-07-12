@@ -1,6 +1,5 @@
-package wrapper.parser;
+package wrapper.comum;
 
-import wrapper.tokenizador.Token;
 import wrapper.tokenizador.Tokenizador;
 
 public class ElementoTexto {

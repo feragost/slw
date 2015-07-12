@@ -1,4 +1,4 @@
-package wrapper.tokenizador;
+package wrapper.comum;
 
 
 
@@ -9,7 +9,7 @@ public class Token implements Comparable<Token>{
 	private int tipo;
 	private boolean validoComoSeparador;
 	
-	protected Token(String valor, int id){
+	public Token(String valor, int id){
 		this.id = id;
 		this.valor = valor;
 		this.validoComoSeparador = false;

@@ -3,7 +3,8 @@ package wrapper.agrup;
 import java.util.LinkedList;
 import java.util.List;
 
-import wrapper.tokenizador.Token;
+import wrapper.comum.Identidade;
+import wrapper.comum.Token;
 
 public class AgruparNodos {
 	

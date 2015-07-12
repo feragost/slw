@@ -2,6 +2,8 @@ package wrapper.agrup;
 
 import java.util.Hashtable;
 
+import wrapper.comum.Identidade;
+
 public class Grupo {
 	
 	int indexInicial;

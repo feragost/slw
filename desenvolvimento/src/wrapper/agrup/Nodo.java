@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import wrapper.tokenizador.Token;
+import wrapper.comum.Token;
 
 public abstract class Nodo {
 	

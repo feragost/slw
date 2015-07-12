@@ -1,4 +1,4 @@
-package wrapper.parser;
+package wrapper.comum;
 
 public enum TipoToken {
 	

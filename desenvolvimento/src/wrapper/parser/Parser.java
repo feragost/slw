@@ -9,7 +9,10 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 
 import wrapper.agrup.Agrupador;
+import wrapper.comum.ElementoTexto;
 import wrapper.comum.PageDto;
+import wrapper.comum.Path;
+import wrapper.comum.Registro;
 
 public class Parser {
 	

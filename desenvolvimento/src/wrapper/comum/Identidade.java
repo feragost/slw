@@ -1,9 +1,7 @@
-package wrapper.agrup;
+package wrapper.comum;
 
 import java.util.Arrays;
 import java.util.HashSet;
-
-import wrapper.tokenizador.Token;
 
 public class Identidade {
 	

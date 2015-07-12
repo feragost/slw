@@ -2,6 +2,8 @@ package wrapper.tokenizador;
 
 import java.util.Hashtable;
 
+import wrapper.comum.Token;
+
 public class TokensCtrl {
 	
 	private Hashtable<String,Token> hash;

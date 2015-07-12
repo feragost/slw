@@ -4,7 +4,7 @@ import java.util.List;
 
 import wrapper.WrapperConfig;
 import wrapper.comum.PageDto;
-import wrapper.parser.Registro;
+import wrapper.comum.Registro;
 
 public class Agrupador {
 	
@@ -41,7 +41,7 @@ public class Agrupador {
 			}else{
 				
 				for(GrupoDeRegistrosSemelhantes grupo : grupos)
-					page.addGrupo(grupo);
+					page.addLista(grupo.getListDto());
 				
 				return null;
 				

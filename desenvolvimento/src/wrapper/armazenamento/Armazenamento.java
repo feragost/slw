@@ -3,11 +3,14 @@ package wrapper.armazenamento;
 import java.util.List;
 
 import wrapper.agrup.GrupoDeRegistrosSemelhantes;
-import wrapper.agrup.Identidade;
+import wrapper.comum.IdValorDto;
+import wrapper.comum.Identidade;
+import wrapper.comum.ListDto;
 import wrapper.comum.PageDto;
-import wrapper.parser.Registro;
-import wrapper.parser.TipoToken;
-import wrapper.tokenizador.Token;
+import wrapper.comum.Registro;
+import wrapper.comum.TipoToken;
+import wrapper.comum.Token;
+import wrapper.comum.ValorQtdDto;
 
 public class Armazenamento {
 	
@@ -18,36 +21,38 @@ public class Armazenamento {
 	public void armazenar(PageDto page){
 		
 		TipoToken[] valoresTipoToken = TipoToken.values();
+		
+		System.out.println("url: " + page.getUrl());
 				
-		for(GrupoDeRegistrosSemelhantes grupo : page.getGrupos()){
+		for(ListDto list : page.getGrupos()){
 			
-			System.out.println("--------grupo--------");
+			System.out.println("----------registros-----------");
+			for(String reg : list.registros)
+				System.out.println(reg);
 			
-			List<Registro> registros = grupo.getRegistros();
-			for(Registro reg : registros)
-				System.out.println(reg.getTexto());
+			System.out.println("----------propriedades--------");
+			
+			for(IdValorDto idv : list.paths)
+				System.out.println("path : " + idv.getId() + " : " + idv.getValor());
+			
+			for(IdValorDto idv : list.separadores)
+				System.out.println("sep : " + idv.getId() + " : " + idv.getValor());
+			
+			for(IdValorDto idv : list.tiposEspeciais)
+				System.out.println("tipo : " + idv.getId() + " : " + idv.getValor());
+			
+			System.out.println("----------idents--------------");
+			
+			for(ValorQtdDto vqtd : list.identsDesc)
+				System.out.println(vqtd.getQtd() + " : " + vqtd.getValor());
+			
+			System.out.println("----------identsPath----------");
+			
+			for(ValorQtdDto vqtd : list.pathsDesc)
+				System.out.println(vqtd.getQtd() + " : " + vqtd.getValor());
 			
 			
 			
-			List<Identidade> identidades = grupo.getIdentidades();
-			for(Identidade identidade : identidades){
-				
-				System.out.println("--------ident--------");
-				
-				Token[] tokens = identidade.getTokensEmComum();
-				for(Token token : tokens){
-					System.out.println("token  " + token.getValor());
-				}
-				
-				Integer[] tipos = identidade.getTiposDeTokenEmComum();
-				for(Integer tipo : tipos){
-					System.out.println("tipo  " + valoresTipoToken[tipo]);
-				}
-				
-				
-			}
-			
-			System.out.println("");
 			
 		}
 		

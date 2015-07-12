@@ -2,8 +2,8 @@ package wrapper.agrup;
 
 import java.util.List;
 
-import wrapper.parser.Registro;
-import wrapper.tokenizador.Token;
+import wrapper.comum.Registro;
+import wrapper.comum.Token;
 
 public class NodoRegistro extends Nodo{
 	

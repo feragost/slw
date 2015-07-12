@@ -2,7 +2,7 @@ package wrapper;
 
 import java.util.HashSet;
 
-import wrapper.parser.TipoToken;
+import wrapper.comum.TipoToken;
 
 public class WrapperConfig {
 	

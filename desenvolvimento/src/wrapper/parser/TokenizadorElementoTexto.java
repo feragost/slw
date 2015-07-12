@@ -1,7 +1,8 @@
 package wrapper.parser;
 
+import wrapper.comum.TipoToken;
+import wrapper.comum.Token;
 import wrapper.tokenizador.Padrao;
-import wrapper.tokenizador.Token;
 import wrapper.tokenizador.Tokenizador;
 
 public class TokenizadorElementoTexto extends Tokenizador {

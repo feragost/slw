@@ -1,4 +1,4 @@
-package wrapper.parser;
+package wrapper.comum;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import wrapper.WrapperConfig;
-import wrapper.tokenizador.Token;
 
 public class Registro {
 
@@ -33,23 +32,34 @@ public class Registro {
 	}
 	
 	private void analisarTokens(){
+		
 		caracteresEspeciais = new HashSet<Token>();
 		tiposDeTokens = new HashSet<Integer>();
 		HashSet<Integer> tiposTokenIdent = WrapperConfig.tiposTokenIdent;
+				
 		
 		for(ElementoTexto et : elementosTextos){
+						
 			for(Token t : et.getTokens()){
 				
 				if(tiposTokenIdent.contains(t.getTipo())){
+					
 					tiposDeTokens.add(t.getTipo());
-				}
-				
-				if(t.getTipo() == TipoToken.CARACTERE_ESPECIAL.ordinal()){
+					
+					IdentTipoTokenItem identTipo = new IdentTipoTokenItem(t.getTipo());
+									
+				}else if(t.getTipo() == TipoToken.CARACTERE_ESPECIAL.ordinal()){
+					
 					caracteresEspeciais.add(t);
+					
+					IdentSepItem identSep = new IdentSepItem(t);
+					
 				}
 				
 			}
+			
 		}
+		
 	}
 	
 	public boolean contemCaractereEspecial(Token token){
@@ -75,8 +85,8 @@ public class Registro {
 	public ElementoTexto[] getElementoTexto() {
 		return elementosTextos;
 	}
-
 	
+
 	public static boolean validarRegistro(Registro registro) {
 
 		if (registro.getTexto().length() > WrapperConfig.numeroMaximoDeCaracteresPorRegistro) {

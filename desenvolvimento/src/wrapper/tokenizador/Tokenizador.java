@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import wrapper.comum.Token;
+
 public class Tokenizador{
 	
 	private ArrayList<Padrao> padroes;
