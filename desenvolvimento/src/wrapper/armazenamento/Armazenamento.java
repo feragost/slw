@@ -2,15 +2,15 @@ package wrapper.armazenamento;
 
 import java.util.List;
 
+import comum.IdValorDto;
+import comum.ListDto;
+import comum.PageDto;
+import comum.ValorQtdDto;
 import wrapper.agrup.GrupoDeRegistrosSemelhantes;
-import wrapper.comum.IdValorDto;
 import wrapper.comum.Identidade;
-import wrapper.comum.ListDto;
-import wrapper.comum.PageDto;
 import wrapper.comum.Registro;
 import wrapper.comum.TipoToken;
 import wrapper.comum.Token;
-import wrapper.comum.ValorQtdDto;
 
 public class Armazenamento {
 	
@@ -22,7 +22,7 @@ public class Armazenamento {
 		
 		TipoToken[] valoresTipoToken = TipoToken.values();
 		
-		System.out.println("url: " + page.getUrl());
+		//System.out.println("url: " + page.getUrl());
 				
 		for(ListDto list : page.getGrupos()){
 			

@@ -6,8 +6,9 @@ import jsoap.DocumentCreator;
 
 import org.jsoup.nodes.Document;
 
+import comum.PageDto;
+import comum.UrlDto;
 import wrapper.Wrapper;
-import wrapper.comum.PageDto;
 
 public class Main {
 	
@@ -16,9 +17,11 @@ public class Main {
 		Wrapper wrapper = new Wrapper();
 		File file = new File("C:/Users/Fernando/Desktop/ex.html"); 
 		//Document doc = DocumentCreator.create(file);
-		Document doc = DocumentCreator.create("https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population");
-		PageDto page = new PageDto("ex.html",0);
-		wrapper.extrair(doc, page);
+		Document doc = DocumentCreator.create("https://pt.wikipedia.org/wiki/Nikola_Tesla");
+		UrlDto urlDto = new UrlDto("localhost", "ex.html", 0);
+		PageDto page = new PageDto(urlDto);
+		page.setDoc(doc);
+		wrapper.wrap(page);
 		
 	}
 

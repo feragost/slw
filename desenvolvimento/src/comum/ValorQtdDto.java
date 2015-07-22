@@ -1,4 +1,4 @@
-package wrapper.comum;
+package comum;
 
 public class ValorQtdDto {
 	

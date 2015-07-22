@@ -8,9 +8,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 
+import comum.PageDto;
+
 import wrapper.agrup.Agrupador;
 import wrapper.comum.ElementoTexto;
-import wrapper.comum.PageDto;
 import wrapper.comum.Path;
 import wrapper.comum.Registro;
 
@@ -21,7 +22,9 @@ public class Parser {
 	private PageDto page;
 	private Agrupador agrupador;
 
-	public void parse(Document doc, PageDto page) {
+	public void parse(PageDto page) {
+		
+		Document doc = page.getDoc();
 		
 		this.pathCtrl = new PathCtrl();
 		this.tokenizadorET = new TokenizadorElementoTexto();

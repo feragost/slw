@@ -2,20 +2,22 @@ package wrapper;
 
 import org.jsoup.nodes.Document;
 
+import comum.PageDto;
+
 import wrapper.armazenamento.Armazenamento;
-import wrapper.comum.PageDto;
 import wrapper.parser.Parser;
 
 public class Wrapper {
 	
-	public void extrair(Document doc, PageDto page){
+	public void wrap(PageDto page){
 		
 		Parser parser = new Parser();
-		parser.parse(doc, page);
+		parser.parse(page);		
 		
+		/*
 		Armazenamento arm = new Armazenamento();
 		arm.armazenar(page);
-		
+		*/
 	}
 	
 	

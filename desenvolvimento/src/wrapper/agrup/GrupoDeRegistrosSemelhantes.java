@@ -5,17 +5,17 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import comum.IdValorDto;
+import comum.ListDto;
+import comum.ValorQtdDto;
 import wrapper.comum.ElementoTexto;
-import wrapper.comum.IdValorDto;
 import wrapper.comum.IdentItem;
 import wrapper.comum.IdentSepItem;
 import wrapper.comum.Identidade;
-import wrapper.comum.ListDto;
 import wrapper.comum.Path;
 import wrapper.comum.Registro;
 import wrapper.comum.TipoToken;
 import wrapper.comum.Token;
-import wrapper.comum.ValorQtdDto;
 
 public class GrupoDeRegistrosSemelhantes {
 	
