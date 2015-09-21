@@ -24,7 +24,8 @@ public class Armazenamento {
 		
 		//System.out.println("url: " + page.getUrl());
 				
-		for(ListDto list : page.getGrupos()){
+		/*
+		for(ListDto list : page.getListas()){
 			
 			System.out.println("----------registros-----------");
 			for(String reg : list.registros)
@@ -56,7 +57,7 @@ public class Armazenamento {
 			System.out.println("");
 			
 			
-		}
+		}*/
 		
 	}
 

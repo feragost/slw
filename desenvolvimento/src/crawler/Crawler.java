@@ -15,22 +15,22 @@ public class Crawler {
 		UrlsRecentementeVisitadas urlsVisited = new UrlsRecentementeVisitadas();
 		
 		for(int i = 0 ; i < CrawlerConfig.quantidadeDeWrappers ; i++){
-			WrapperRunnable wr = new WrapperRunnable(documents, urlsVisited, i+1);
+			RunnableWrapper wr = new RunnableWrapper(documents, urlsVisited, i+1);
 			Thread novaThread = new Thread(wr);
 			novaThread.start();
 		}
 		
 		for(int i = 0 ; i < CrawlerConfig.quantidadeDeDownloadsSimultaneos ; i++){
-			DownloadRunnable dr = new DownloadRunnable(seeds, documents, urlsVisited, i+1);
+			RunnableDownload dr = new RunnableDownload(seeds, documents, urlsVisited, i+1);
 			Thread novaThread = new Thread(dr);
 			novaThread.start();
 		}
 		
-		SeedCtrlRunnable sr = new SeedCtrlRunnable(seeds, urlsVisited, 1);
+		RunnableSeedCtrl sr = new RunnableSeedCtrl(seeds, urlsVisited, 1);
 		Thread novaThread = new Thread(sr);
 		novaThread.start();
 		
-		RemoveVisitadosRunnable rvr = new RemoveVisitadosRunnable(urlsVisited);
+		RunnableRemoveVisitados rvr = new RunnableRemoveVisitados(urlsVisited);
 		Thread rvrThread = new Thread(rvr);
 		rvrThread.start();
 		
@@ -40,7 +40,6 @@ public class Crawler {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

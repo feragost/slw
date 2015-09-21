@@ -12,7 +12,7 @@ import comum.PageDto;
 import comum.UrlDto;
 import crawler.CrawlerConfig;
 import crawler.UrlColector;
-import crawler.UrlStatus;
+import crawler.VisitStatus;
 
 public class EntityUrl {
 	
@@ -32,15 +32,12 @@ public class EntityUrl {
 				long id = seqCtrl.getNextIdUrl();
 				long idAuth = hashAuth.get(urlDto.getAuth());
 				String descricao = urlDto.getUrl();
-				int idUrlStatus = UrlStatus.RECOLHIDA.getId();
+				descricao = descricao.replaceAll("'", "''");
+				int idUrlStatus = VisitStatus.NOVA_URL.getId();
+				int idWrapperStatus = VisitStatus.NOVA_URL.getId();
 				
-				if(idAuth == 0){
-					System.out.println(urlDto.getAuth());
-					System.out.println(urlDto.getUrl());
-					System.out.println("---------------------");
-				}
 				
-				String sql = "INSERT INTO tb_url VALUES (" + id + "," + idAuth + ",'" + descricao + "'," + idUrlStatus + ")";
+				String sql = "INSERT INTO tb_url VALUES (" + id + "," + idAuth + ",'" + descricao + "'," + idUrlStatus + ","+idWrapperStatus+")";
 				sqls.add(sql);
 				
 			}			
@@ -58,7 +55,8 @@ public class EntityUrl {
 		String sql = "SELECT descricao FROM tb_url WHERE descricao IN ( ? )";
 		String x = "";
 		for(UrlDto urlDto : urlDtos){
-			x += ",'" + urlDto.getUrl() + "'";
+			String descricao = urlDto.getUrl().replaceAll("'", "''");
+			x += ",'" + descricao + "'";
 		}
 		x = x.replaceFirst(",", "");
 		sql = sql.replace("?", x);

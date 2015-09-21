@@ -11,6 +11,8 @@ public class CrawlerConfig {
 	public static final int tamanhoBufferDoc = 20;
 
 	public static final UrlDto[] seeds = {
+		
+			
 			new UrlDto("https://pt.wikipedia.org","https://pt.wikipedia.org/wiki/Papa_Francisco"),
 			new UrlDto("https://pt.wikipedia.org","https://pt.wikipedia.org/wiki/Suprema_Corte_dos_Estados_Unidos"),
 			new UrlDto("https://pt.wikipedia.org","https://pt.wikipedia.org/wiki/Henrique_VIII_de_Inglaterra"),

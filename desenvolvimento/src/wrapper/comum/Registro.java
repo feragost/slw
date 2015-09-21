@@ -13,8 +13,11 @@ public class Registro {
 	private ElementoTexto[] elementosTextos;
 	private HashSet<Token> caracteresEspeciais;
 	private HashSet<Integer> tiposDeTokens;
+	private WrapperConfig wrapperConfig;
+	
 
 	public Registro(ElementoTexto et) {
+		this.wrapperConfig = WrapperConfig.getInstance();
 		this.texto = et.getTexto();
 		this.elementosTextos = new ElementoTexto[1];
 		this.elementosTextos[0] = et;
@@ -88,8 +91,10 @@ public class Registro {
 	
 
 	public static boolean validarRegistro(Registro registro) {
+		
+		WrapperConfig wrapperConfig = WrapperConfig.getInstance();
 
-		if (registro.getTexto().length() > WrapperConfig.numeroMaximoDeCaracteresPorRegistro) {
+		if (registro.getTexto().length() > wrapperConfig.getNumeroMaximoDeCaracteresPorRegistro()) {
 			return false;
 		}
 

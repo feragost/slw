@@ -25,11 +25,11 @@ public class Insert {
 					sql = sql.substring(0, sql.length() - 1);
 				}
 
-				stmt.addBatch(sql);
+				stmt.execute(sql);
 
 			}
 
-			stmt.executeBatch();
+			//stmt.executeBatch();
 			connection.commit();
 
 		} catch (SQLException e) {

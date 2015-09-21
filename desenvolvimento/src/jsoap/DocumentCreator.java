@@ -15,8 +15,8 @@ public class DocumentCreator {
 
 			return Jsoup.parse(file, "UTF-8");
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Throwable e) {
+			//e.printStackTrace();
 		}
 
 		return null;
@@ -30,8 +30,8 @@ public class DocumentCreator {
 			URL url = new URL(urlDesc);
 			return Jsoup.parse(url,10000);		
 			
-		} catch (IOException e) {
-			e.printStackTrace();			
+		} catch (Throwable e) {
+			//e.printStackTrace();			
 		}
 		
 		return null;

@@ -5,15 +5,19 @@ import java.util.List;
 import comum.ListDto;
 import comum.PageDto;
 import comum.ValorQtdDto;
+import comum.VisitDto;
+import crawler.Settings;
 import wrapper.WrapperConfig;
 import wrapper.comum.Registro;
 
 public class Agrupador {
 	
 	private PageDto page;
+	private WrapperConfig wrapperConfig;
 	
 	public Agrupador(PageDto page){
 		this.page = page;
+		wrapperConfig = WrapperConfig.getInstance();
 	}
 	
 	/*
@@ -27,13 +31,13 @@ public class Agrupador {
 			
 			throw new RuntimeException("Zero registros foram entregues para agrupar");
 			
-		}else if(registros.size() > 0 && registros.size() < WrapperConfig.numeroMinimoDeRegistrosPorLista){	
+		}else if(registros.size() > 0 && registros.size() < wrapperConfig.getNumeroMinimoDeRegistrosPorLista()){	
 			
 			return Registro.compilar(registros);
 			
 		}else {
 						
-			Extrator extrator = new Extrator(WrapperConfig.numeroDeDerivacoes, WrapperConfig.numeroMinimoDeRegistrosPorLista);
+			Extrator extrator = new Extrator(wrapperConfig.getNumeroDeDerivacoes(), wrapperConfig.getNumeroMinimoDeRegistrosPorLista());
 			List<GrupoDeRegistrosSemelhantes> grupos = extrator.extrair(registros);
 						
 			if(grupos.size() == 0){
@@ -42,15 +46,20 @@ public class Agrupador {
 				
 			}else{
 				
+				Settings settings = wrapperConfig.getSettings();
+				VisitDto visitDto = new VisitDto(settings);
+				
 				for(GrupoDeRegistrosSemelhantes grupo : grupos){
 					
 					ListDto listDto = grupo.getListDto();
 					
 					if(validarListDto(listDto)){
-						page.addLista(listDto);
+						visitDto.addLista(listDto);
 					}
 					
 				}
+				
+				page.addVisit(visitDto);
 					
 				return null;
 				

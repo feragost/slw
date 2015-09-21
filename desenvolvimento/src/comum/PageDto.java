@@ -9,17 +9,35 @@ import wrapper.agrup.GrupoDeRegistrosSemelhantes;
 
 public class PageDto {
 	
-	private UrlDto urlDto;
 	private Document doc;
 	
+	private UrlDto urlDto;
 	private List<UrlDto> urlsColetadas;
-	private List<ListDto> listas;
+	
+	private List<VisitDto> visitDtos;
+	
 	
 	
 	public PageDto(UrlDto urlDto){
 		this.urlDto = urlDto;
-		this.listas = new LinkedList<ListDto>();
+		//this.listas = new LinkedList<ListDto>();
 		this.urlsColetadas = new LinkedList<UrlDto>();
+		this.visitDtos = new LinkedList<VisitDto>();
+	}
+	
+	public PageDto(){
+		this.urlDto = null;
+		this.visitDtos = null;
+		this.doc = null;
+		this.urlsColetadas = null;
+	}
+	
+	public void addVisit(VisitDto visitDto){
+		this.visitDtos.add(visitDto);
+	}
+	
+	public List<VisitDto> getVisits(){
+		return this.visitDtos;
 	}
 	
 	public Document getDoc() {
@@ -28,10 +46,6 @@ public class PageDto {
 
 	public void setDoc(Document doc) {
 		this.doc = doc;
-	}
-
-	public void addLista(ListDto listDto){
-		this.listas.add(listDto);
 	}
 	
 	public void addUrlColetada(UrlDto urlDto){
@@ -42,9 +56,15 @@ public class PageDto {
 		return urlDto;
 	}
 
-	public List<ListDto> getGrupos() {
+	/*
+	public void addLista(ListDto listDto){
+		this.listas.add(listDto);
+	}
+
+	public List<ListDto> getListas() {
 		return listas;
 	}
+	*/
 	
 	public UrlDto[] getUrlColetadas(){
 		return urlsColetadas.toArray(new UrlDto[urlsColetadas.size()]);

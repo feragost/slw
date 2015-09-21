@@ -1,6 +1,5 @@
 package crawler;
 
-import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import jsoap.DocumentCreator;
@@ -9,17 +8,16 @@ import org.jsoup.nodes.Document;
 
 import comum.PageDto;
 import comum.UrlDto;
-import database.CreateSql;
-import database.Database;
+import database.UpdateVisitStatus;
 
-public class DownloadRunnable implements Runnable {
+public class RunnableDownload implements Runnable {
 	
 	private LinkedBlockingQueue<PageDto> seeds;
 	private LinkedBlockingQueue<PageDto> documents;
 	private UrlsRecentementeVisitadas urlsVisited;
 	private int id;
 	
-	public DownloadRunnable(LinkedBlockingQueue<PageDto> seeds, LinkedBlockingQueue<PageDto> documents, UrlsRecentementeVisitadas urlsVisited, int id){
+	public RunnableDownload(LinkedBlockingQueue<PageDto> seeds, LinkedBlockingQueue<PageDto> documents, UrlsRecentementeVisitadas urlsVisited, int id){
 		
 		this.seeds = seeds;
 		this.documents = documents;
@@ -69,8 +67,7 @@ public class DownloadRunnable implements Runnable {
 	
 	private void setUrlProblema(UrlDto urlDto){
 				
-		String sql = CreateSql.getSqlUpdateUrlStatus(urlDto.getId(), UrlStatus.PROBLEMA_DOWN); 
-		Database.insert(sql);
+		UpdateVisitStatus.doit(urlDto.getId(), VisitStatus.PROBLEMA);
 		
 	}
 

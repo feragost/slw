@@ -9,13 +9,13 @@ import comum.PageDto;
 import comum.UrlDto;
 import database.Database;
 
-public class SeedCtrlRunnable implements Runnable {
+public class RunnableSeedCtrl implements Runnable {
 	
 	private LinkedBlockingQueue<PageDto> seeds;
 	private UrlsRecentementeVisitadas urlsVisited;
 	private int id;
 	
-	public SeedCtrlRunnable(LinkedBlockingQueue<PageDto> seeds, UrlsRecentementeVisitadas urlsVisited, int id) {
+	public RunnableSeedCtrl(LinkedBlockingQueue<PageDto> seeds, UrlsRecentementeVisitadas urlsVisited, int id) {
 		this.seeds = seeds;
 		this.urlsVisited = urlsVisited;
 		this.id = id;
@@ -48,7 +48,7 @@ public class SeedCtrlRunnable implements Runnable {
 		
 		LinkedList<UrlDto> urlDtos = new LinkedList<UrlDto>();
 		
-		String sql = "SELECT * FROM tb_url WHERE id_url_status = " + UrlStatus.RECOLHIDA.getId() + " ORDER BY RAND() LIMIT 200";
+		String sql = "SELECT * FROM tb_url WHERE id_url_status = " + VisitStatus.NOVA_URL.getId() + " ORDER BY RAND() LIMIT 200";
 		String[][] matrix = Database.getMatrizOf(sql);
 		
 		for(String[] reg : matrix){

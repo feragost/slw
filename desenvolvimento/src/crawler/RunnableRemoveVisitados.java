@@ -1,10 +1,12 @@
 package crawler;
 
-public class RemoveVisitadosRunnable implements Runnable {
+public class RunnableRemoveVisitados implements Runnable, StopRunnable {
 	
 	private UrlsRecentementeVisitadas urlsRecentementeVisitadas;
+	private boolean run;
 	
-	public RemoveVisitadosRunnable(UrlsRecentementeVisitadas urlsRecentementeVisitadas){
+	public RunnableRemoveVisitados(UrlsRecentementeVisitadas urlsRecentementeVisitadas){
+		run = true;
 		this.urlsRecentementeVisitadas = urlsRecentementeVisitadas;
 	}
 
@@ -14,7 +16,7 @@ public class RemoveVisitadosRunnable implements Runnable {
 		long gapRemove = CrawlerConfig.milissegundosSemAcessoAoMesmoAuth;
 		long gapWait = gapRemove / 2;
 		
-		while(true){
+		while(run){
 			
 			try {
 				long timeMillisAtual = System.currentTimeMillis();
@@ -26,6 +28,11 @@ public class RemoveVisitadosRunnable implements Runnable {
 			
 		}
 		
+	}
+
+	@Override
+	public void stop() {
+		run = false;		
 	}
 	
 
