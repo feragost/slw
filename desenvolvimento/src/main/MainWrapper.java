@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 import wrapper.Wrapper;
 import comum.PageDto;
 import comum.UrlDto;
+import comum.VisitDto;
 import crawler.Settings;
 import crawler.VisitStatus;
 import database.Database;
@@ -55,11 +56,15 @@ public class MainWrapper {
 				UpdateWrapperStatus.doit(pageDto.getUrlDto().getId(), VisitStatus.PROBLEMA); 
 			}
 			
-			pageDto.setDoc(doc);
 			
 			for(Wrapper w : ws){
-				w.wrap(pageDto);
-				EntityLista.inserirListasColetadas(pageDto);
+				
+				PageDto pageToWrap = new PageDto(pageDto.getUrlDto());
+				pageToWrap.setDoc(doc);
+								
+				w.wrap(pageToWrap);
+				
+				EntityLista.inserirListasColetadas(pageToWrap, w.getSettings());
 			}
 			
 			UpdateWrapperStatus.doit(pageDto.getUrlDto().getId(), VisitStatus.LISTAS_COLETADAS); 

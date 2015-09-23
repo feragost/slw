@@ -9,7 +9,7 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 
 import comum.PageDto;
-
+import comum.VisitDto;
 import wrapper.agrup.Agrupador;
 import wrapper.comum.ElementoTexto;
 import wrapper.comum.Path;

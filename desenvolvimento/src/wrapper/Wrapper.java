@@ -1,16 +1,22 @@
 package wrapper;
 
-import org.jsoup.nodes.Document;
 
 import comum.PageDto;
+import comum.VisitDto;
 import crawler.Settings;
-import wrapper.armazenamento.Armazenamento;
 import wrapper.parser.Parser;
 
 public class Wrapper {
 	
+	private Settings settings;
+	
 	public Wrapper(Settings settings){
 		WrapperConfig.defineSettings(settings);
+		this.settings = settings;
+	}
+		
+	public Settings getSettings(){
+		return settings;
 	}
 	
 	public void wrap(PageDto page){

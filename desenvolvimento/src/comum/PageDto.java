@@ -13,8 +13,8 @@ public class PageDto {
 	
 	private UrlDto urlDto;
 	private List<UrlDto> urlsColetadas;
-	
-	private List<VisitDto> visitDtos;
+	private List<ListDto> listas;
+	//private List<VisitDto> visitDtos;
 	
 	
 	
@@ -22,22 +22,14 @@ public class PageDto {
 		this.urlDto = urlDto;
 		//this.listas = new LinkedList<ListDto>();
 		this.urlsColetadas = new LinkedList<UrlDto>();
-		this.visitDtos = new LinkedList<VisitDto>();
+		this.listas = new LinkedList<ListDto>();
 	}
 	
 	public PageDto(){
 		this.urlDto = null;
-		this.visitDtos = null;
+		this.listas = null;
 		this.doc = null;
 		this.urlsColetadas = null;
-	}
-	
-	public void addVisit(VisitDto visitDto){
-		this.visitDtos.add(visitDto);
-	}
-	
-	public List<VisitDto> getVisits(){
-		return this.visitDtos;
 	}
 	
 	public Document getDoc() {
@@ -56,7 +48,7 @@ public class PageDto {
 		return urlDto;
 	}
 
-	/*
+	
 	public void addLista(ListDto listDto){
 		this.listas.add(listDto);
 	}
@@ -64,7 +56,7 @@ public class PageDto {
 	public List<ListDto> getListas() {
 		return listas;
 	}
-	*/
+	
 	
 	public UrlDto[] getUrlColetadas(){
 		return urlsColetadas.toArray(new UrlDto[urlsColetadas.size()]);

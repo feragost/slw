@@ -45,22 +45,18 @@ public class Agrupador {
 				return Registro.compilar(registros);
 				
 			}else{
-				
-				Settings settings = wrapperConfig.getSettings();
-				VisitDto visitDto = new VisitDto(settings);
-				
+												
 				for(GrupoDeRegistrosSemelhantes grupo : grupos){
 					
 					ListDto listDto = grupo.getListDto();
 					
 					if(validarListDto(listDto)){
-						visitDto.addLista(listDto);
+						page.addLista(listDto);
 					}
 					
 				}
 				
-				page.addVisit(visitDto);
-					
+				
 				return null;
 				
 			}

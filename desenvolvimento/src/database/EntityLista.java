@@ -1,52 +1,36 @@
 package database;
 
-import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.List;
 
-import jsoap.DocumentCreator;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.jsoup.nodes.Document;
 
-import wrapper.Wrapper;
 import comum.IdValorDto;
 import comum.ListDto;
 import comum.PageDto;
-import comum.UrlDto;
 import comum.ValorQtdDto;
-import comum.VisitDto;
-import crawler.CrawlerConfig;
-import crawler.UrlColector;
+import crawler.Settings;
 
 public class EntityLista {
 	
-	public static synchronized void inserirListasColetadas(PageDto pageDto){
-		
-		SequenceCtrl seqCtrl = SequenceCtrl.getInstance();
-		
-		List<VisitDto> visitDtos = pageDto.getVisits();
-		
-		for(VisitDto visitDto : visitDtos){
-			inserirVisita(pageDto.getUrlDto(), visitDto);
-		}
-		
-		
-		
+	public static synchronized void inserirListasColetadas(PageDto pageDto, Settings settings){
+				
+		inserirVisita(pageDto, settings);
+				
 	}
 	
-	private static void inserirVisita(UrlDto urlDto, VisitDto visitDto){
+	private static void inserirVisita(PageDto pageDto, Settings settings){
 		
 		SequenceCtrl seqCtrl = SequenceCtrl.getInstance();
 		
-		List<ListDto> listasDto = visitDto.getListas();
+		List<ListDto> listasDto = pageDto.getListas();
 		
 		LinkedList<String> sqls = new LinkedList<String>();
 		
 		long idVisit = seqCtrl.getNextIdVisita();
-		long idUrl = urlDto.getId();
-		int idSett = visitDto.getSettings().getId();
+		long idUrl = pageDto.getUrlDto().getId();
+		int idSett = settings.getId();
 		String sqlVisit = "INSERT INTO tb_visit VALUES("+idVisit+","+idUrl+","+idSett+")";
 		sqls.addLast(sqlVisit);
 		
@@ -144,16 +128,6 @@ public class EntityLista {
 		
 	}
 	
-	public static void main(String[] args) {
-						
-		UrlDto urlDto = CrawlerConfig.seeds[3];
-		Document doc = DocumentCreator.create(urlDto.getUrl());
-		PageDto pageDto = new PageDto(urlDto);
-		pageDto.setDoc(doc);
-		//Wrapper w = new Wrapper();
-		//w.wrap(pageDto);
-		
-		EntityLista.inserirListasColetadas(pageDto);
-	}
+	
 
 }
