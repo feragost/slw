@@ -1,33 +1,32 @@
 package main;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import jsoap.DocumentCreator;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;
 
+import showresult.ShowResult;
 import wrapper.Wrapper;
+import comum.ListDto;
 import comum.PageDto;
 import comum.UrlDto;
 import comum.VisitDto;
 import crawler.Settings;
-import crawler.VisitStatus;
-import database.Database;
-import database.EntityLista;
-import database.UpdateVisitStatus;
-import database.UpdateWrapperStatus;
 
-public class MainWrapper {
-	
-	private Wrapper[] ws;
+public class Revoc {
 	
 	public static void main(String[] args) {
-		new MainWrapper().doit();
+		Revoc.wrap();
 	}
 	
-	
-	public MainWrapper(){
+	public static void wrap(){
+		
+		Wrapper[] ws;
 		
 		Settings[] settingsValues = Settings.values();
 		ws = new Wrapper[settingsValues.length];
@@ -35,13 +34,10 @@ public class MainWrapper {
 			ws[i] = new Wrapper(settingsValues[i]);
 		}
 		
-	}
-	
-	public void doit(){
+		List<PageDto> pageDtos = Revoc.getPageDtos();
 		
-		List<PageDto> pageDtos = getPageDtos();
 		int numVisitas = 0;
-		int numVisitasMax = pageDtos.size();		
+		int numVisitasMax = pageDtos.size();
 		
 		for(PageDto pageDto : pageDtos){
 			
@@ -52,22 +48,33 @@ public class MainWrapper {
 			
 			try{
 				
-				for(Wrapper w : ws){
+				VisitDto[] visitDtos = new VisitDto[ws.length];
+								
+				for(int i = 0 ; i < ws.length ; i++){
+					
+					Wrapper w = ws[i];
 					
 					PageDto pageToWrap = new PageDto(pageDto.getUrlDto());
 					pageToWrap.setDoc(doc);
 									
 					w.wrap(pageToWrap);
 					
-					EntityLista.inserirListasColetadas(pageToWrap, w.getSettings());
+					VisitDto visitDto = new VisitDto(i + 1, w.getSettings());
+					
+					for(ListDto listDto : pageToWrap.getListas()){
+						visitDto.addLista(listDto);						
+					}
+					
+					visitDtos[i] = visitDto;					
+					
 				}
 				
-				UpdateWrapperStatus.doit(pageDto.getUrlDto().getId(), VisitStatus.LISTAS_COLETADAS); 
+				
+				ShowResult.putInRevocResults(pageDto.getUrlDto(), visitDtos);
 				
 			}catch(Throwable t){
 				
 				t.printStackTrace();
-				UpdateWrapperStatus.doit(pageDto.getUrlDto().getId(), VisitStatus.PROBLEMA); 
 				
 			}					
 			
@@ -75,23 +82,25 @@ public class MainWrapper {
 		
 	}
 	
-	protected List<PageDto> getPageDtos() {
+	public static List<PageDto> getPageDtos() {
 		
 		LinkedList<UrlDto> urlDtos = new LinkedList<UrlDto>();
 		
-		String sql = "SELECT id, id_auth, descricao FROM tb_url WHERE id_wrapper_status = " + VisitStatus.COLETAR_LISTAS.getId();
-		String[][] matrix = Database.getMatrizOf(sql);
+		File file = new File("revoc_links.txt"); 
+		List<String> lista = null;
+		try {
+			lista = FileUtils.readLines(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		for(String[] reg : matrix){
+		int id = 0;
+		for(String link : lista){
 			
-			long id = Long.parseLong(reg[0]);
-			long idAuth = Long.parseLong(reg[1]);
-			String url = reg[2];
+			UrlDto urlDto = new UrlDto(link, ++id, 1);			
+			urlDtos.add(urlDto);
 			
-			UrlDto urlDto = new UrlDto(url, id, idAuth);
-			urlDtos.addLast(urlDto);
-			
-		}		
+		}
 		
 		List<PageDto> pageDtos = new LinkedList<PageDto>();
 		for(UrlDto urlDto : urlDtos){
@@ -101,5 +110,5 @@ public class MainWrapper {
 		return pageDtos;
 		
 	}
-
+	
 }

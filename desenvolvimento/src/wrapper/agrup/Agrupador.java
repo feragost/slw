@@ -1,14 +1,18 @@
 package wrapper.agrup;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import comum.ListDto;
 import comum.PageDto;
+import comum.RegistroDto;
 import comum.ValorQtdDto;
 import comum.VisitDto;
 import crawler.Settings;
 import wrapper.WrapperConfig;
 import wrapper.comum.Registro;
+import wrapper.separar.Separador;
 
 public class Agrupador {
 	
@@ -51,7 +55,14 @@ public class Agrupador {
 					ListDto listDto = grupo.getListDto();
 					
 					if(validarListDto(listDto)){
-						page.addLista(listDto);
+						
+						Separador sep = new Separador();
+						sep.separar(listDto);
+						
+						if(validarSeparacao(listDto)){
+							page.addLista(listDto);							
+						}
+						
 					}
 					
 				}
@@ -65,7 +76,91 @@ public class Agrupador {
 		}
 	}
 	
+	private boolean validarSeparacao(ListDto listDto){
+		
+		RegistroDto[] registrosDtos = listDto.registroDtos;
+		int numAtts = listDto.getIdentComMaiorQuantidade().getIdent().length + 1;
+		
+		boolean[] attsVazios = new boolean[numAtts];
+		for(int i = 0 ; i < attsVazios.length ; i++){
+			attsVazios[i] = true;
+		}
+		
+		HashSet<String>[] attsValores = new HashSet[numAtts];
+		for(int i = 0 ; i < attsValores.length ; i++){
+			attsValores[i] = new HashSet<String>();
+		}
+		
+		for(RegistroDto registroDto : registrosDtos){
+			
+			String[] atts = registroDto.getAtributos();
+			
+			if(atts != null && atts.length > 0){
+				
+				for(int i = 0 ; i < atts.length ; i++){
+					
+					if(atts[i] != null && !atts[i].trim().equals("")){
+						attsVazios[i] = false;
+						attsValores[i].add(atts[i]);
+					}					
+					
+				}
+				
+			}
+			
+		}
+		
+		HashSet<Integer> indexOut = new HashSet<Integer>();
+		for(int i = 0 ; i < numAtts ; i++){
+			if(attsVazios[i] || attsValores[i].size() < 2){
+				indexOut.add(i);
+			}
+		}
+		
+		if(indexOut.size() > 0){
+			
+			for(RegistroDto registroDto : registrosDtos){
+				
+				String[] atts = registroDto.getAtributos();
+				
+				if(atts != null && atts.length > 0){
+					
+					LinkedList<String> attsNovos = new LinkedList<String>();					
+					for(int i = 0 ; i < atts.length ; i++){
+						if(!indexOut.contains(i)){
+							attsNovos.addLast(atts[i]);
+						}
+					}
+					
+					registroDto.addAtributos(attsNovos.toArray(new String[attsNovos.size()]));
+					
+				}
+				
+				
+				
+			}
+			
+		}
+		
+		if(numAtts - indexOut.size() < 2){
+			return false;
+		}		
+		
+		return true;
+	}
+	
+	
+	
 	private boolean validarListDto(ListDto listDto){
+		
+		int qtdRegistros = listDto.registros.length;
+		int maxIdent = listDto.getIdentComMaiorQuantidade().getQtd();		
+		float minAceito = qtdRegistros * wrapperConfig.getPercentualMinimoParaQuantidadeDeIdent();
+				
+		if(maxIdent < minAceito){
+			return false;
+		}
+		
 		
 		int contValidado = 0;
 		int contNaoValidado = 0;

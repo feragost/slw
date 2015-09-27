@@ -14,13 +14,11 @@ public class PageDto {
 	private UrlDto urlDto;
 	private List<UrlDto> urlsColetadas;
 	private List<ListDto> listas;
-	//private List<VisitDto> visitDtos;
 	
 	
 	
 	public PageDto(UrlDto urlDto){
 		this.urlDto = urlDto;
-		//this.listas = new LinkedList<ListDto>();
 		this.urlsColetadas = new LinkedList<UrlDto>();
 		this.listas = new LinkedList<ListDto>();
 	}

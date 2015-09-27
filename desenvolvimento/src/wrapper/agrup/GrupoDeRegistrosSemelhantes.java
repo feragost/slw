@@ -7,6 +7,7 @@ import java.util.List;
 
 import comum.IdValorDto;
 import comum.ListDto;
+import comum.RegistroDto;
 import comum.ValorQtdDto;
 import wrapper.comum.ElementoTexto;
 import wrapper.comum.IdentItem;
@@ -44,6 +45,7 @@ public class GrupoDeRegistrosSemelhantes {
 		ListDto list = new ListDto();
 		
 		LinkedList<String> valoresRegistros = new LinkedList<String>();
+		LinkedList<RegistroDto> registrosDtos = new LinkedList<RegistroDto>();
 		
 		HashMap<Token, IdValorDto> separadores = new HashMap<Token, IdValorDto>();
 		HashMap<Integer, IdValorDto> tiposToken = new HashMap<Integer, IdValorDto>();
@@ -78,12 +80,14 @@ public class GrupoDeRegistrosSemelhantes {
 		for(Registro reg : registros){
 			
 			valoresRegistros.addLast(reg.getTexto());
+			RegistroDto registroDto = new RegistroDto();
+			registrosDtos.add(registroDto);
 			
 			
-			String identPath = "";
 			String ident = "";
+			LinkedList<Token> identToken = new LinkedList<Token>();
 			boolean x = false;
-			Path pathAtual = null;
+			
 			
 			for(ElementoTexto et : reg.getElementoTexto()){
 				
@@ -102,65 +106,35 @@ public class GrupoDeRegistrosSemelhantes {
 					paths.put(etPath, idv);
 					
 				}
-				
-				if(etPath != pathAtual){
-					IdValorDto idv = paths.get(et.getPath());
-					identPath += "." + idv.getId();
-					
-					pathAtual = etPath;
-				}
-				
-				
-				
-				
+								
 				
 				for(Token token : et.getTokens()){
 					
-					
-					if(tiposToken.containsKey(token.getTipo())){
-						
-						IdValorDto idv = tiposToken.get(token.getTipo());
-						ident += "." + idv.getId();
-						identPath += "." + idv.getId();
-						x = false;
-						
-					} else 
-					
+					registroDto.addToken(token);
+															
 					if(separadores.containsKey(token)){
 						
 						IdValorDto idv = separadores.get(token);
+						identToken.add(token);
 						ident += "." + idv.getId();
-						identPath += "." + idv.getId();
 						x = false;
 						
 					} else if( ! x ){
 						
 						ident += ".x";
-						identPath += ".x";
 						x = true;
 						
 					}
 					
 				}
-				
-				
-				
-				
-				
-				
+								
 			}						
-			
-			if( ! identsPath.containsKey(identPath) ){
-				ValorQtdDto vqtd = new ValorQtdDto(identPath, 1);
-				identsPath.put(identPath, vqtd);				
-			}else{				
-				ValorQtdDto vqtd = identsPath.get(identPath);
-				vqtd.setQtd(vqtd.getQtd() + 1);		
-			}
+						
 			
 			if( ! idents.containsKey(ident) ){	
 				ValorQtdDto vqtd = new ValorQtdDto(ident, 1);
-				idents.put(ident, vqtd);				
+				vqtd.addIdent(identToken);
+				idents.put(ident, vqtd);
 			}else{				
 				ValorQtdDto vqtd = idents.get(ident);
 				vqtd.setQtd(vqtd.getQtd() + 1);
@@ -169,11 +143,14 @@ public class GrupoDeRegistrosSemelhantes {
 		}
 		
 		list.registros = valoresRegistros.toArray(new String[valoresRegistros.size()]);
+		list.registroDtos = registrosDtos.toArray(new RegistroDto[registrosDtos.size()]);
 		list.separadores = separadores.values().toArray(new IdValorDto[separadores.size()]);
 		list.tiposEspeciais = tiposToken.values().toArray(new IdValorDto[tiposToken.size()]);
 		list.paths = paths.values().toArray(new IdValorDto[paths.size()]);
 		list.pathsDesc = identsPath.values().toArray(new ValorQtdDto[identsPath.size()]);
-		list.identsDesc = idents.values().toArray(new ValorQtdDto[idents.size()]);		
+		list.identsDesc = idents.values().toArray(new ValorQtdDto[idents.size()]);
+		
+		
 		
 		return list;
 	}

@@ -1,10 +1,10 @@
 package comum;
 
-import java.util.HashMap;
 
 public class ListDto {
 	
 	public String[] registros;
+	public RegistroDto[] registroDtos;
 	
 	public IdValorDto[] tiposEspeciais;
 	public IdValorDto[] separadores;
@@ -13,6 +13,17 @@ public class ListDto {
 	public ValorQtdDto[] identsDesc;	
 	public ValorQtdDto[] pathsDesc;
 	
-	
+	public ValorQtdDto getIdentComMaiorQuantidade(){
+		int qtdMax = 0;
+		ValorQtdDto vqtdMax = null;
+		for(ValorQtdDto vqtd : identsDesc){
+			if(vqtd.getQtd() > qtdMax){
+				qtdMax = vqtd.getQtd();
+				vqtdMax = vqtd;
+			}
+		}
+		
+		return vqtdMax;
+	}
 
 }

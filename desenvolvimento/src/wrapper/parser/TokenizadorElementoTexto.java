@@ -12,7 +12,7 @@ public class TokenizadorElementoTexto extends Tokenizador {
 		String regexHifenInterno = "(\\w)+(-(\\w)+)+";
 		String regexNumero = "(\\d)+([.|,](\\d)+)*";
 		String regexEspacoBranco = "\\s";
-		String regexCaracteresEspeciais = "\\W";
+		String regexCaracteresEspeciais = "(?i)[^0-9a-záéíóúàèìòùâêîôûãõç]";
 		
 		addPadroes(new Padrao(regexEmail, true, false, TipoToken.EMAIL.ordinal()));
 		addPadroes(new Padrao(regexHifenInterno, true, false, TipoToken.HIFEN_INTERNO.ordinal()));
@@ -28,7 +28,7 @@ public class TokenizadorElementoTexto extends Tokenizador {
 	public static void main(String[] args) {
 		
 		TokenizadorElementoTexto tokenizador = new TokenizadorElementoTexto();
-		Token[] tokens = tokenizador.tokenizar("fernando@gmail.com - Metallica, The Beatles, Iron Maidem");
+		Token[] tokens = tokenizador.tokenizar("fernando@gmail.com - Metalçlica, (The Beatles, Iron Maidem)");
 		
 		for(Token token : tokens){
 			TipoToken[] tipoTokenValues = TipoToken.values();

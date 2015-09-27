@@ -12,8 +12,14 @@ public class VisitDto {
 	private List<ListDto> listas;
 	
 	public VisitDto(Settings settings){
+		this.listas = new LinkedList<ListDto>();		
 		this.settings = settings;
+	}
+	
+	public VisitDto(long id, Settings settings){
 		this.listas = new LinkedList<ListDto>();
+		this.id = id;
+		this.settings = settings;
 	}
 	
 	public Settings getSettings(){
@@ -27,5 +33,11 @@ public class VisitDto {
 	public List<ListDto> getListas() {
 		return listas;
 	}
+	
+	public long getId(){
+		return this.id;
+	}
+	
+	
 
 }

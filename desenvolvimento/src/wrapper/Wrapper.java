@@ -22,7 +22,10 @@ public class Wrapper {
 	public void wrap(PageDto page){
 		
 		Parser parser = new Parser();
-		parser.parse(page);		
+		parser.parse(page);
+		
+		//combinar listas adjacentes com a mesma identidade
+		
 				
 	}
 	

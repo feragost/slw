@@ -1,3 +1,4 @@
+
 package wrapper;
 
 import java.util.HashSet;
@@ -12,10 +13,12 @@ public class WrapperConfig {
 	private int numeroMinimoDeRegistrosPorLista;
 	private int numeroMaximoDeCaracteresPorRegistro;
 	private int numeroDeDerivacoes;
+	private float percentualMinimoParaQuantidadeDeIdent;
 	
 	private static final int numeroMinimoDeRegistrosPorListaDefault = 8;
 	private static final int numeroMaximoDeCaracteresPorRegistroDefault = 160;
 	private static final int numeroDeDerivacoesDefault = 4;
+	public static final float percentualMinimoParaQuantidadeDeIdentDefault = 0.6f;
 	
 	public static final HashSet<Integer> tiposTokenIdent = getTiposTokenIdent();
 	
@@ -27,6 +30,7 @@ public class WrapperConfig {
 		this.numeroMinimoDeRegistrosPorLista = settings.getNumMinRegistros();
 		this.numeroMaximoDeCaracteresPorRegistro = settings.getNumMaxCaracteres();
 		this.numeroDeDerivacoes = settings.getNumDeDerivacoes();
+		this.percentualMinimoParaQuantidadeDeIdent = settings.getPercentIdentidadePrevalecente();
 	}
 	
 	public static WrapperConfig getInstance(){			
@@ -47,6 +51,10 @@ public class WrapperConfig {
 	
 	public int getNumeroDeDerivacoes(){
 		return this.numeroDeDerivacoes;
+	}
+	
+	public float getPercentualMinimoParaQuantidadeDeIdent(){
+		return this.percentualMinimoParaQuantidadeDeIdent;
 	}
 	
 	public Settings getSettings(){

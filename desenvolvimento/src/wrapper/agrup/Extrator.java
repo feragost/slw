@@ -29,9 +29,9 @@ public class Extrator {
 		
 		ArrayList<Nodo> nodosRegistros = new ArrayList<Nodo>();
 		Iterator<Registro> itRegistros = registros.iterator();
-		for(int i = 0 ; i < registros.size() ; i++)
+		for(int i = 0 ; i < registros.size() ; i++){
 			nodosRegistros.add(new NodoRegistro(itRegistros.next(),i));
-				
+		}
 		
 		for(int i = 0 ; i < numeroDeDerivacoes ; i++){
 			nodosRegistros = derivar(nodosRegistros);

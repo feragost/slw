@@ -14,7 +14,7 @@ public class Reconstruir {
 		Schema.doit();
 		InsertSeeds.doit();
 		new Crawler().coletar(5);
-		new Choose().doit(5);
+		new Choose().doit(10);
 		new MainWrapper().doit();
 		
 	}

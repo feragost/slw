@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import comum.IdValorDto;
 import comum.ListDto;
 import comum.PageDto;
+import comum.RegistroDto;
 import comum.ValorQtdDto;
 import crawler.Settings;
 
@@ -66,6 +67,20 @@ public class EntityLista {
 			regsJson.put(regJson);
 		}
 		
+		RegistroDto[] registrosDtos = listDto.registroDtos;
+		JSONArray regsDtosJson = new JSONArray();
+		for(RegistroDto regDto : registrosDtos){
+			
+			JSONArray attsJson = new JSONArray();
+			String[] atts = regDto.getAtributos();
+			for(String att : atts){
+				JSONObject attJson = new JSONObject();
+				attJson.put("att", att);
+				attsJson.put(attJson);
+			}
+			regsDtosJson.put(attsJson);
+		}
+		
 		
 		JSONArray sepsJson = new JSONArray();		
 		IdValorDto[] separadores = listDto.separadores;
@@ -76,24 +91,7 @@ public class EntityLista {
 			sepsJson.put(sepJson);
 		}
 		
-		JSONArray tiposJson = new JSONArray();		
-		IdValorDto[] tipos = listDto.tiposEspeciais;
-		for(IdValorDto tipo : tipos){
-			JSONObject tipoJson = new JSONObject();
-			tipoJson.put("id", tipo.getId());
-			tipoJson.put("desc", tipo.getValor());
-			tiposJson.put(tipoJson);
-		}
-		
-		JSONArray pathsJson = new JSONArray();		
-		IdValorDto[] paths = listDto.paths;
-		for(IdValorDto path : paths){
-			JSONObject pathJson = new JSONObject();
-			pathJson.put("id", path.getId());
-			pathJson.put("desc", path.getValor());
-			pathsJson.put(pathJson);
-		}
-		
+				
 		
 		
 		JSONArray identsJson = new JSONArray();
@@ -105,23 +103,14 @@ public class EntityLista {
 			identsJson.put(identJson);
 		}
 		
-		JSONArray identsPathJson = new JSONArray();
-		ValorQtdDto[] identsPath = listDto.pathsDesc;
-		for(ValorQtdDto identPath : identsPath){
-			JSONObject identPathJson = new JSONObject();
-			identPathJson.put("desc", identPath.getValor());
-			identPathJson.put("qtd", identPath.getQtd());
-			identsPathJson.put(identPathJson);
-		}
+		
 		
 		
 		JSONObject listJson = new JSONObject();
-		listJson.put("regs", regsJson);
+		listJson.put("regstext", regsJson);
+		listJson.put("regs", regsDtosJson);
 		listJson.put("seps", sepsJson);
-		listJson.put("tipos", tiposJson);
-		listJson.put("paths", pathsJson);
 		listJson.put("idents", identsJson);
-		listJson.put("identsPath", identsPathJson);
 				
 		
 		return listJson.toString();
