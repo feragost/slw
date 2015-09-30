@@ -1,5 +1,7 @@
 package wrapper.agrup;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,17 +93,23 @@ public class Agrupador {
 			attsValores[i] = new HashSet<String>();
 		}
 		
+		TextosColuna[] textosColuna = new TextosColuna[numAtts];
+		for(int i = 0 ; i < textosColuna.length ; i++){
+			textosColuna[i] = new TextosColuna();
+		}
+		
 		for(RegistroDto registroDto : registrosDtos){
 			
 			String[] atts = registroDto.getAtributos();
 			
 			if(atts != null && atts.length > 0){
 				
-				for(int i = 0 ; i < atts.length ; i++){
+				for(int i = 0 ; i < atts.length ; i++){					
 					
 					if(atts[i] != null && !atts[i].trim().equals("")){
 						attsVazios[i] = false;
 						attsValores[i].add(atts[i]);
+						textosColuna[i].addTexto(atts[i]);
 					}					
 					
 				}
@@ -111,11 +119,16 @@ public class Agrupador {
 		}
 		
 		HashSet<Integer> indexOut = new HashSet<Integer>();
+		
 		for(int i = 0 ; i < numAtts ; i++){
 			if(attsVazios[i] || attsValores[i].size() < 2){
 				indexOut.add(i);
+			}else if(textosColuna[i].getMaiorQuantidade() > wrapperConfig.getPercentualMaximoParaRepeticaoEmColuna() * registrosDtos.length){
+				indexOut.add(i);
 			}
 		}
+		
+		
 		
 		if(indexOut.size() > 0){
 			
@@ -152,6 +165,7 @@ public class Agrupador {
 	
 	
 	private boolean validarListDto(ListDto listDto){
+		
 		
 		int qtdRegistros = listDto.registros.length;
 		int maxIdent = listDto.getIdentComMaiorQuantidade().getQtd();		
@@ -216,7 +230,37 @@ public class Agrupador {
 	}
 	
 	
-	
+	public class TextosColuna{
+		
+		HashMap<String, Integer> hashTextoColuna;
+		
+		public TextosColuna(){
+			hashTextoColuna = new HashMap<String, Integer>();
+		}
+		
+		public void addTexto(String texto){
+			
+			if(! hashTextoColuna.containsKey(texto)){
+				hashTextoColuna.put(texto, 0);
+			}
+			
+			int qtd = hashTextoColuna.remove(texto);
+			hashTextoColuna.put(texto, qtd + 1);
+			
+		}
+		
+		public int getMaiorQuantidade(){
+			Collection<Integer> values = hashTextoColuna.values();
+			int maior = 0;
+			for(Integer i : values){
+				if(i > maior){
+					maior = i;
+				}
+			}
+			return maior;
+		}
+		
+	}
 	
 
 }

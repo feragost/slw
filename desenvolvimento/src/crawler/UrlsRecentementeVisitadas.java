@@ -69,9 +69,9 @@ public class UrlsRecentementeVisitadas {
 			
 			MapAuthTime map = listAuthTime.getFirst();
 			if(map.getTimeMillis() < timeMillis){
-				MapAuthTime removed = listAuthTime.removeFirst();
+				//MapAuthTime removed = listAuthTime.removeFirst();
 				hashUrlsVisitadas.remove(map.getAuth());
-				System.out.println(removed.getAuth() + " removido");
+				//System.out.println(removed.getAuth() + " removido");
 			}else{
 				break;
 			}

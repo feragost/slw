@@ -66,7 +66,7 @@ public static VisitDto[] doit(UrlDto urlDto){
 	public static ListDto getListDto(JSONObject listJson){
 		
 		ListDto listDto = new ListDto();
-		System.out.println(listJson.toString());
+		//System.out.println(listJson.toString());
 		
 		JSONArray regstext = listJson.getJSONArray("regstext");
 		JSONArray regs = listJson.getJSONArray("regs");

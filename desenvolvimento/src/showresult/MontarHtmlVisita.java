@@ -43,6 +43,7 @@ public class MontarHtmlVisita {
 		html += "<div><b>Número máximo de caracteres: </b> "+settings.getNumMaxCaracteres()+"</div>";
 		html += "<div><b>Número de derivações: </b> "+settings.getNumDeDerivacoes()+"</div>";
 		html += "<div><b>Percentual mínimo para identidade prevalecente: </b> "+settings.getPercentIdentidadePrevalecente()+"</div>";
+		html += "<div><b>Percentual máximo para repetição na coluna: </b> "+settings.getPercentualMaximoParaRepeticaoEmColuna()+"</div>";
 
 		for (ListDto listDto : visitDto.getListas()) {
 			

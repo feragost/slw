@@ -1,5 +1,6 @@
 package wrapper.comum;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -93,10 +94,29 @@ public class Registro {
 	public static boolean validarRegistro(Registro registro) {
 		
 		WrapperConfig wrapperConfig = WrapperConfig.getInstance();
-
-		if (registro.getTexto().length() > wrapperConfig.getNumeroMaximoDeCaracteresPorRegistro()) {
+		
+		String texto = registro.getTexto();
+		int registroLength = texto.length();
+		
+		if (registroLength > wrapperConfig.getNumeroMaximoDeCaracteresPorRegistro()) {
 			return false;
 		}
+				
+		
+		int numEspeciais = 0;
+		
+		for(char c : texto.toCharArray()){
+			
+			if((int) c > 256 && !Character.isSpace(c)){
+				numEspeciais++;
+			}			
+			
+		}
+		
+		if(numEspeciais * 3 > registroLength){
+			return false;
+		}
+			
 
 		return true;
 
@@ -119,6 +139,11 @@ public class Registro {
 			return registroCompilado;
 		else
 			return null;
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println((int) 'A');
 	}
 
 }

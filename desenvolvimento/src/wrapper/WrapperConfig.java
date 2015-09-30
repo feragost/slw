@@ -14,11 +14,13 @@ public class WrapperConfig {
 	private int numeroMaximoDeCaracteresPorRegistro;
 	private int numeroDeDerivacoes;
 	private float percentualMinimoParaQuantidadeDeIdent;
+	private float percentualMaximoParaRepeticaoEmColuna;
 	
 	private static final int numeroMinimoDeRegistrosPorListaDefault = 8;
 	private static final int numeroMaximoDeCaracteresPorRegistroDefault = 160;
 	private static final int numeroDeDerivacoesDefault = 4;
 	public static final float percentualMinimoParaQuantidadeDeIdentDefault = 0.6f;
+	public static final float percentualMaximoParaRepeticaoEmColunaDefault = 0.7f;
 	
 	public static final HashSet<Integer> tiposTokenIdent = getTiposTokenIdent();
 	
@@ -31,6 +33,7 @@ public class WrapperConfig {
 		this.numeroMaximoDeCaracteresPorRegistro = settings.getNumMaxCaracteres();
 		this.numeroDeDerivacoes = settings.getNumDeDerivacoes();
 		this.percentualMinimoParaQuantidadeDeIdent = settings.getPercentIdentidadePrevalecente();
+		this.percentualMaximoParaRepeticaoEmColuna = settings.getPercentualMaximoParaRepeticaoEmColuna();
 	}
 	
 	public static WrapperConfig getInstance(){			
@@ -55,6 +58,10 @@ public class WrapperConfig {
 	
 	public float getPercentualMinimoParaQuantidadeDeIdent(){
 		return this.percentualMinimoParaQuantidadeDeIdent;
+	}
+	
+	public float getPercentualMaximoParaRepeticaoEmColuna(){
+		return this.percentualMaximoParaRepeticaoEmColuna;
 	}
 	
 	public Settings getSettings(){

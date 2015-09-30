@@ -8,19 +8,19 @@ import jsoap.DocumentCreator;
 import org.jsoup.nodes.Document;
 
 import wrapper.Wrapper;
+
 import comum.PageDto;
 import comum.UrlDto;
-import comum.VisitDto;
+
 import crawler.Settings;
 import crawler.VisitStatus;
 import database.Database;
 import database.EntityLista;
-import database.UpdateVisitStatus;
 import database.UpdateWrapperStatus;
 
 public class MainWrapper {
 	
-	private Wrapper[] ws;
+	private Settings[] settingsValues;
 	
 	public static void main(String[] args) {
 		new MainWrapper().doit();
@@ -29,11 +29,7 @@ public class MainWrapper {
 	
 	public MainWrapper(){
 		
-		Settings[] settingsValues = Settings.values();
-		ws = new Wrapper[settingsValues.length];
-		for(int i = 0 ; i < settingsValues.length ; i++){
-			ws[i] = new Wrapper(settingsValues[i]);
-		}
+		settingsValues = Settings.values();
 		
 	}
 	
@@ -52,7 +48,9 @@ public class MainWrapper {
 			
 			try{
 				
-				for(Wrapper w : ws){
+				for(Settings settings : settingsValues){
+					
+					Wrapper w = new Wrapper(settings);
 					
 					PageDto pageToWrap = new PageDto(pageDto.getUrlDto());
 					pageToWrap.setDoc(doc);
@@ -66,7 +64,8 @@ public class MainWrapper {
 				
 			}catch(Throwable t){
 				
-				t.printStackTrace();
+				//t.printStackTrace();
+				System.out.println("Falha no Wrapper.");
 				UpdateWrapperStatus.doit(pageDto.getUrlDto().getId(), VisitStatus.PROBLEMA); 
 				
 			}					

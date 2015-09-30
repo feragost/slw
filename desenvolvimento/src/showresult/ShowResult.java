@@ -25,6 +25,18 @@ public class ShowResult {
 	}
 	
 	private static void doit(UrlDto urlDto, VisitDto[] visitDtos, String path){
+		
+		boolean construir = false;
+		for(VisitDto visitDto : visitDtos){
+			if(visitDto.getListas().size() > 0){
+				construir = true;
+				break;
+			}
+		}
+		
+		if(!construir){
+			return;
+		}
 				
 		File resultsDir = new File(path);
 		if(!resultsDir.exists()){
@@ -46,7 +58,7 @@ public class ShowResult {
 		resultDir.mkdir();
 		
 		for(VisitDto visitDto : visitDtos){
-			MontarHtmlVisita.doit(pathResultDir, urlDto, visitDto);
+			MontarHtmlVisita.doit(pathResultDir, urlDto, visitDto);				
 		}
 		
 		

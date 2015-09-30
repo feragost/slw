@@ -8,7 +8,7 @@ public class MainShowResult {
 	
 	public static void main(String[] args) {
 		
-		MainShowResult.doit(3);
+		MainShowResult.doit(200);
 		
 	}
 	

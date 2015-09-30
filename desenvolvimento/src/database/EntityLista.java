@@ -38,7 +38,7 @@ public class EntityLista {
 		for(ListDto listDto : listasDto){
 			
 			String jsonString = getJsonDe(listDto);
-			System.out.println(jsonString);
+			//System.out.println(jsonString);
 			
 			if(jsonString != null){
 				

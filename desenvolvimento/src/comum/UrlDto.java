@@ -7,6 +7,7 @@ public class UrlDto {
 	private String url;
 	private long id;
 	
+		
 	public UrlDto(String auth, String url){
 		this.auth = auth;
 		this.url = url;
