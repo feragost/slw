@@ -1,3 +1,3 @@
-function mostra(x) {
-	alert(x);
-}
+(function() {
+	alert('bla bla bla')
+}).call(this);
