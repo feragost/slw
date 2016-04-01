@@ -1,3 +1,3 @@
 function mostra(x) {
-	console.log(x);
+	alert(x);
 }
